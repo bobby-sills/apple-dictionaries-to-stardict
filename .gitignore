@@ -1,0 +1,10 @@
+# Python environment
+venv/
+__pycache__/
+
+# Extracted and converted dictionaries: publishers' copyrighted content, generated locally
+output/
+stardict/
+
+*.log
+.DS_Store
