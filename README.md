@@ -158,6 +158,11 @@ Copy the dictionary folders you want:
   apple-peeler's format.
 - `check_stardict.py`: validates the output.
 
+## License
+
+The scripts are under the [MIT License](LICENSE). The license covers this code only, not the
+dictionaries it converts, which remain their publishers' copyrighted works.
+
 Credit to [apple-peeler](https://pypi.org/project/apple-peeler/) for the extraction, and to
 Joseph Gentle's
 [write-up on the Apple dictionary format](https://josephg.com/blog/reverse-engineering-apple-dictionaries).
