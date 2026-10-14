@@ -59,7 +59,104 @@ python3.11 -m venv venv
 ./venv/bin/pip install -r requirements.txt
 ```
 
+## Quick start
+
+Most people only want an English dictionary, plus maybe a thesaurus or one other language.
+Each recipe is two commands: extract with apple-peeler, then convert with `build_all.py`. The
+result is a folder in `stardict/` to copy to your reader (see
+[Installing on a reader](#installing-on-a-reader)).
+
+### American English dictionary
+
+```sh
+./venv/bin/apple-peeler -d "New Oxford American Dictionary" --out output
+./venv/bin/python build_all.py NOAD
+```
+
+→ `stardict/NOAD/`. Takes under a minute.
+
+### British English dictionary
+
+```sh
+./venv/bin/apple-peeler -d "Oxford Dictionary of English" --out output
+./venv/bin/python build_all.py ODE
+```
+
+→ `stardict/ODE/`
+
+### Add a thesaurus
+
+The two thesauri are the same book in American and British spelling, so pick one:
+
+```sh
+# American spelling (color, analyze)
+./venv/bin/apple-peeler -d "Oxford American Writer's Thesaurus" --out output
+./venv/bin/python build_all.py OAWT
+
+# British spelling (colour, analyse)
+./venv/bin/apple-peeler -d "Oxford Thesaurus of English" --out output
+./venv/bin/python build_all.py OTE
+```
+
+### All four English dictionaries at once
+
+```sh
+./venv/bin/apple-peeler -d "New Oxford American Dictionary" -d "Oxford Dictionary of English" \
+    -d "Oxford American Writer's Thesaurus" -d "Oxford Thesaurus of English" --out output
+./venv/bin/python build_all.py NOAD ODE OAWT OTE
+```
+
+### Add another language
+
+Bilingual dictionaries become two StarDict dictionaries, one per direction. For example, Spanish:
+
+```sh
+./venv/bin/apple-peeler -d "Spanish - English" --out output
+./venv/bin/python build_all.py ES-EN EN-ES     # Spanish → English and English → Spanish
+```
+
+For definitions written in the language itself (a Spanish dictionary in Spanish), add the
+single-language dictionary:
+
+```sh
+./venv/bin/apple-peeler -d "Spanish" --out output
+./venv/bin/python build_all.py ES
+```
+
+Common languages:
+
+| Language | Extract with `-d` | Build names |
+|---|---|---|
+| Spanish | `"Spanish - English"`, `"Spanish"` | `ES-EN EN-ES`, `ES` |
+| French | `"French - English"`, `"French"` | `FR-EN EN-FR`, `FR` |
+| German | `"German - English"`, `"Duden Dictionary Data Set I"` | `DE-EN EN-DE`, `DE` |
+| Italian | `"Italian - English"`, `"Italian"` | `IT-EN EN-IT`, `IT` |
+| Portuguese | `"Portuguese - English"`, `"Portuguese"` | `PT-EN EN-PT`, `PT` |
+| Japanese | `"Sanseido The WISDOM English-Japanese Japanese-English Dictionary"`, `"Sanseido Super Daijirin"` | `JA-EN EN-JA`, `JA` |
+| Chinese (Simplified) | `"Simplified Chinese - English"`, `"The Standard Dictionary of Contemporary Chinese"` | `ZHS-EN EN-ZHS`, `ZHS` |
+
+Every other language follows the same pattern. The full list of build names, with the matching
+apple-peeler names, is in `build_all.py`.
+
+> **"Invalid value for '--dictionary' / '-d'"** means the dictionary isn't installed (or the
+> name is misspelled; the error lists every valid name). Tick it in **Dictionary → Settings**
+> and run the command again.
+
+### Copy to your reader
+
+Volume names vary by device. Check yours under `/Volumes/`.
+
+```sh
+# KOReader on a Kobo
+cp -R stardict/NOAD /Volumes/KOBOeReader/.adds/koreader/data/dict/
+
+# CrossPoint (SD card)
+cp -R stardict/NOAD "/Volumes/YOUR_SD_CARD/dictionaries/"
+```
+
 ## Usage
+
+The full reference for each step.
 
 ### 1. Extract the dictionaries to XML
 
